@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, 'useEffect', useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -189,7 +189,10 @@ export function TaskForm({ isOpen, onOpenChange, onSave, task }: TaskFormProps) 
                         <Calendar
                           mode="single"
                           selected={field.value ?? undefined}
-                          onSelect={field.onChange}
+                          onSelect={(date) => {
+                            field.onChange(date);
+                            setCalendarOpen(false);
+                          }}
                           disabled={(date) => date < new Date(new Date().setHours(0,0,0,0))}
                           captionLayout="dropdown-buttons"
                           fromYear={new Date().getFullYear()}
