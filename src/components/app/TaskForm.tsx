@@ -189,10 +189,7 @@ export function TaskForm({ isOpen, onOpenChange, onSave, task }: TaskFormProps) 
                         <Calendar
                           mode="single"
                           selected={field.value ?? undefined}
-                          onSelect={(date) => {
-                            field.onChange(date);
-                            setCalendarOpen(false);
-                          }}
+                          onSelect={field.onChange}
                           disabled={(date) => date < new Date(new Date().setHours(0,0,0,0))}
                           captionLayout="dropdown-buttons"
                           fromYear={new Date().getFullYear()}
