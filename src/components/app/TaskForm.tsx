@@ -190,7 +190,6 @@ export function TaskForm({ isOpen, onOpenChange, onSave, task }: TaskFormProps) 
                           selected={field.value ?? undefined}
                           onSelect={field.onChange}
                           disabled={(date) => date < new Date(new Date().setHours(0,0,0,0))}
-                          initialFocus
                           captionLayout="dropdown-buttons"
                           fromYear={new Date().getFullYear()}
                           toYear={new Date().getFullYear() + 10}
