@@ -2,45 +2,61 @@
 
 import React, { useState, useMemo } from 'react';
 import type { Task } from '@/lib/types';
-import { initialTasks } from '@/lib/data';
 import { AppHeader } from '@/components/app/Header';
 import { TaskList } from '@/components/app/TaskList';
 import { Progress } from '@/components/ui/progress';
+import { useQuery, useMutation } from 'convex/react';
+import { api } from '../../../convex/_generated/api';
+import type { Id } from '../../../convex/_generated/dataModel';
 
 export function AppLayout() {
-  const [tasks, setTasks] = useState<Task[]>(initialTasks);
+  const convexTasks = useQuery(api.tasks.get);
+  const addTaskMutation = useMutation(api.tasks.add);
+  const updateTaskMutation = useMutation(api.tasks.update);
+  const deleteTaskMutation = useMutation(api.tasks.remove);
+  const toggleTaskStatusMutation = useMutation(api.tasks.toggleStatus);
+
+  const tasks: Task[] = useMemo(() => {
+    if (!convexTasks) return [];
+    return convexTasks.map((task) => ({
+      ...task,
+      id: task._id,
+      deadline: task.deadline ? new Date(task.deadline) : null,
+    }));
+  }, [convexTasks]);
 
   const addTask = (task: Omit<Task, 'id' | 'status'>) => {
-    const newTask: Task = {
+    addTaskMutation({
       ...task,
-      id: Date.now().toString(),
-      status: 'todo',
-    };
-    setTasks((prev) => [newTask, ...prev]);
+      deadline: task.deadline ? task.deadline.getTime() : null,
+    });
   };
 
   const updateTask = (updatedTask: Task) => {
-    setTasks((prev) => prev.map((task) => (task.id === updatedTask.id ? updatedTask : task)));
+    const { id, title, description, tags, priority, deadline } = updatedTask;
+    updateTaskMutation({
+      id: id as Id<'tasks'>,
+      title,
+      description,
+      tags,
+      priority,
+      deadline: deadline ? deadline.getTime() : null,
+    });
   };
 
   const deleteTask = (taskId: string) => {
-    setTasks((prev) => prev.filter((task) => task.id !== taskId));
+    deleteTaskMutation({ id: taskId as Id<'tasks'> });
   };
 
   const toggleTaskStatus = (taskId: string) => {
-    setTasks((prev) =>
-      prev.map((task) =>
-        task.id === taskId
-          ? { ...task, status: task.status === 'done' ? 'todo' : 'done' }
-          : task
-      )
-    );
+    toggleTaskStatusMutation({ id: taskId as Id<'tasks'> });
   };
   
   const progress = useMemo(() => {
-    const doneTasks = tasks.filter((task) => task.status === 'done').length;
-    return tasks.length > 0 ? (doneTasks / tasks.length) * 100 : 0;
-  }, [tasks]);
+    if (!convexTasks) return 0;
+    const doneTasks = convexTasks.filter((task) => task.status === 'done').length;
+    return convexTasks.length > 0 ? (doneTasks / convexTasks.length) * 100 : 0;
+  }, [convexTasks]);
 
 
   return (
