@@ -59,6 +59,7 @@ interface TaskFormProps {
 
 export function TaskForm({ isOpen, onOpenChange, onSave, task }: TaskFormProps) {
   const { toast } = useToast();
+  const [calendarOpen, setCalendarOpen] = useState(false);
   const form = useForm<TaskFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -165,7 +166,7 @@ export function TaskForm({ isOpen, onOpenChange, onSave, task }: TaskFormProps) 
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
                     <FormLabel>Deadline</FormLabel>
-                    <Popover>
+                    <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
                       <PopoverTrigger asChild>
                         <FormControl>
                           <Button
