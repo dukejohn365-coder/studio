@@ -1,3 +1,28 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero",
+      "description": "A person focused on their work at a clean desk.",
+      "imageUrl": "https://images.unsplash.com/photo-1758876202983-c36dd5019142?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Zm9jdXNlZCUyMHdvcmt8ZW58MHx8fHwxNzY5NDkyODYxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "focused work"
+    },
+    {
+      "id": "feature-categorization",
+      "description": "Organized sticky notes on a board.",
+      "imageUrl": "https://images.unsplash.com/photo-1758876201598-67fd2a5570ed?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxvcmdhbml6YXRpb24lMjBub3Rlc3xlbnwwfHx8fDE3Njk1MDUwNjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "organization notes"
+    },
+    {
+      "id": "feature-prioritization",
+      "description": "A list with highlighted items.",
+      "imageUrl": "https://images.unsplash.com/photo-1623265300797-4a3541e29a60?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxjaGVja2xpc3QlMjBwcmlvcml0eXxlbnwwfHx8fDE3Njk1MDUwNjF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "checklist priority"
+    },
+    {
+      "id": "feature-progress",
+      "description": "A chart showing progress.",
+      "imageUrl": "https://images.unsplash.com/photo-1543286386-713bdd548da4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwcm9ncmVzcyUyMGNoYXJ0fGVufDB8fHx8MTc2OTQ5NjM1M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "progress chart"
+    }
+  ]
 }
