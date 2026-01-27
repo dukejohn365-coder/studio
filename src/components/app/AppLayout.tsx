@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import type { Task } from '@/lib/types';
 import { AppHeader } from '@/components/app/Header';
 import { TaskList } from '@/components/app/TaskList';
@@ -11,6 +11,7 @@ import type { Id } from '../../../convex/_generated/dataModel';
 
 export function AppLayout() {
   const convexTasks = useQuery(api.tasks.get);
+  const isLoading = convexTasks === undefined;
   const addTaskMutation = useMutation(api.tasks.add);
   const updateTaskMutation = useMutation(api.tasks.update);
   const deleteTaskMutation = useMutation(api.tasks.remove);
@@ -72,6 +73,7 @@ export function AppLayout() {
         </div>
         <TaskList
           tasks={tasks}
+          isLoading={isLoading}
           onUpdateTask={updateTask}
           onDeleteTask={deleteTask}
           onToggleStatus={toggleTaskStatus}
