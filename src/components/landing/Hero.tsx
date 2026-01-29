@@ -17,7 +17,7 @@ export function Hero() {
         </p>
         <div className="mt-10 flex justify-center gap-4">
           <Button size="lg" asChild>
-            <Link href="/dashboard">Start Focusing Now</Link>
+            <Link href="/sign-up">Start Focusing Now</Link>
           </Button>
         </div>
       </div>

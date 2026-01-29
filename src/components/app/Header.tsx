@@ -4,6 +4,7 @@ import { Logo } from '@/components/Logo';
 import { TaskForm } from '@/components/app/TaskForm';
 import type { Task } from '@/lib/types';
 import { Plus } from 'lucide-react';
+import { UserButton } from '@clerk/nextjs';
 
 interface AppHeaderProps {
   onAddTask: (task: Omit<Task, 'id' | 'status'>) => void;
@@ -27,6 +28,7 @@ export function AppHeader({ onAddTask }: AppHeaderProps) {
               <Plus className="mr-2 h-4 w-4" />
               Add Task
             </Button>
+            <UserButton afterSignOutUrl="/" />
           </div>
         </div>
       </header>
