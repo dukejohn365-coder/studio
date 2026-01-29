@@ -72,24 +72,26 @@ export function TaskForm({ isOpen, onOpenChange, onSave, task }: TaskFormProps) 
   });
 
   useEffect(() => {
-    if (task) {
-      form.reset({
-        title: task.title,
-        description: task.description,
-        priority: task.priority,
-        deadline: task.deadline,
-        tags: task.tags.join(', '),
-      });
-    } else {
-      form.reset({
-        title: '',
-        description: '',
-        priority: 'medium',
-        deadline: null,
-        tags: '',
-      });
+    if (isOpen) {
+      if (task) {
+        form.reset({
+          title: task.title,
+          description: task.description,
+          priority: task.priority,
+          deadline: task.deadline,
+          tags: task.tags.join(', '),
+        });
+      } else {
+        form.reset({
+          title: '',
+          description: '',
+          priority: 'medium',
+          deadline: null,
+          tags: '',
+        });
+      }
     }
-  }, [task, form, isOpen]);
+  }, [task, isOpen, form.reset]);
 
   const onSubmit = (data: TaskFormValues) => {
     const tagsArray = data.tags ? data.tags.split(',').map(tag => tag.trim()).filter(tag => tag) : [];
@@ -189,9 +191,12 @@ export function TaskForm({ isOpen, onOpenChange, onSave, task }: TaskFormProps) 
                         <Calendar
                           mode="single"
                           selected={field.value ?? undefined}
-                          onSelect={field.onChange}
+                          onSelect={(date) => {
+                            field.onChange(date);
+                            setCalendarOpen(false);
+                          }}
                           disabled={(date) => date < new Date(new Date().setHours(0,0,0,0))}
-                          captionLayout="dropdown-buttons"
+                          captionLayout="dropdown"
                           fromYear={new Date().getFullYear()}
                           toYear={new Date().getFullYear() + 10}
                         />
