@@ -9,8 +9,8 @@ import {
 } from './_generated/server';
 import type { Auth } from 'convex/server';
 
-async function getUserId(ctx: { auth: Auth }) {
-  const identity = await ctx.auth.getUserIdentity();
+async function getUserId(auth: Auth) {
+  const identity = await auth.getUserIdentity();
   if (!identity) {
     throw new Error('Not authenticated');
   }
@@ -18,7 +18,7 @@ async function getUserId(ctx: { auth: Auth }) {
 }
 
 const authCtx = customCtx(async (ctx) => {
-  const userId = await getUserId(ctx);
+  const userId = await getUserId(ctx.auth);
   return { userId };
 });
 
