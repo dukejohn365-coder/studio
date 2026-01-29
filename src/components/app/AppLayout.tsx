@@ -54,30 +54,34 @@ export function AppLayout() {
   };
   
   const progress = useMemo(() => {
-    if (!convexTasks) return 0;
-    const doneTasks = convexTasks.filter((task) => task.status === 'done').length;
-    return convexTasks.length > 0 ? (doneTasks / convexTasks.length) * 100 : 0;
-  }, [convexTasks]);
+    if (!tasks || tasks.length === 0) return 0;
+    const doneTasks = tasks.filter((task) => task.status === 'done').length;
+    return (doneTasks / tasks.length) * 100;
+  }, [tasks]);
 
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <AppHeader onAddTask={addTask} />
-      <main className="flex-1 p-4 md:p-8 container mx-auto">
-        <div className="mb-6">
-          <div className="flex justify-between items-center mb-2">
-            <h2 className="text-lg font-semibold">Your Progress</h2>
-            <span className="text-lg font-bold text-primary">{Math.round(progress)}%</span>
+      <main className="flex-1 p-4 md:p-8 container mx-auto flex flex-col">
+        {!isLoading && tasks.length > 0 && (
+          <div className="mb-6">
+            <div className="flex justify-between items-center mb-2">
+              <h2 className="text-lg font-semibold">Your Progress</h2>
+              <span className="text-lg font-bold text-primary">{Math.round(progress)}%</span>
+            </div>
+            <Progress value={progress} className="h-2" />
           </div>
-          <Progress value={progress} className="h-2" />
+        )}
+        <div className="flex-1 flex">
+          <TaskList
+            tasks={tasks}
+            isLoading={isLoading}
+            onUpdateTask={updateTask}
+            onDeleteTask={deleteTask}
+            onToggleStatus={toggleTaskStatus}
+          />
         </div>
-        <TaskList
-          tasks={tasks}
-          isLoading={isLoading}
-          onUpdateTask={updateTask}
-          onDeleteTask={deleteTask}
-          onToggleStatus={toggleTaskStatus}
-        />
       </main>
     </div>
   );
