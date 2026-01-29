@@ -1,8 +1,10 @@
+'use client';
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/Logo';
 import { Rocket } from 'lucide-react';
-import { SignedIn, SignedOut } from '@clerk/nextjs';
+import { Authenticated, Unauthenticated } from 'convex/react';
 
 export function Header() {
   return (
@@ -10,7 +12,7 @@ export function Header() {
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <Logo />
         <div className="flex flex-1 items-center justify-end space-x-4">
-          <SignedOut>
+          <Unauthenticated>
             <Button variant="ghost" asChild>
               <Link href="/sign-in">Sign In</Link>
             </Button>
@@ -20,15 +22,15 @@ export function Header() {
                 <Rocket className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-          </SignedOut>
-          <SignedIn>
+          </Unauthenticated>
+          <Authenticated>
             <Button asChild>
               <Link href="/dashboard">
                 Go to Dashboard
                 <Rocket className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-          </SignedIn>
+          </Authenticated>
         </div>
       </div>
     </header>
