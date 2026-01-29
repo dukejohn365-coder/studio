@@ -8,6 +8,7 @@ import { Progress } from '@/components/ui/progress';
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '../../../convex/_generated/api';
 import type { Id } from '../../../convex/_generated/dataModel';
+import { cn } from '@/lib/utils';
 
 export function AppLayout() {
   const convexTasks = useQuery(api.tasks.get);
@@ -73,7 +74,7 @@ export function AppLayout() {
             <Progress value={progress} className="h-2" />
           </div>
         )}
-        <div className="flex-1 flex">
+        <div className={cn('flex-1 flex', !isLoading && tasks.length > 0 && 'items-start')}>
           <TaskList
             tasks={tasks}
             isLoading={isLoading}
